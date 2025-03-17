@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LightRay : MonoBehaviour
 {
     public Transform lightSource;
     public Transform target;
     public LineRenderer lineRenderer;
-    public int maxReflections = 10;//最大发射次数
+    public int maxReflections = 10;//最大反射次数
     public static event System.Action OnLevelCleared;
     public bool isLevelCleared = false;
     private bool isLightOn = false; // 初始光源为关闭状态
     private bool canToggleLight = true; // 是否可以切换光源状态
+    public GameObject victoryPanel; // 胜利UI面板
+    public GameObject Target;//目标UI面板
 
     void Start()
     {
@@ -31,6 +34,12 @@ public class LightRay : MonoBehaviour
         }
 
         HideLightRay();
+
+        // 确保胜利面板初始时是隐藏的
+        if (victoryPanel != null)
+        {
+            victoryPanel.SetActive(false);
+        }
     }
 
     void Update()
@@ -115,6 +124,12 @@ public class LightRay : MonoBehaviour
                         foreach (Mirror mirror in allMirrors)
                         {
                             mirror.DisableRotation();
+                        }
+                        // 显示胜利UI面板和关闭目标UI面板
+                        if (victoryPanel != null)
+                        {
+                            victoryPanel.SetActive(true);
+                            Target.SetActive(false);
                         }
                     }
                     break;

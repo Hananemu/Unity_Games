@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LightRay : MonoBehaviour
 {
     public Transform lightSource;
     public Transform target;
     public LineRenderer lineRenderer;
-    public int maxReflections = 1;
+    public int maxReflections = 10;//最大发射次数
     public static event System.Action OnLevelCleared;
     public bool isLevelCleared = false;
     private bool isLightOn = false; // 初始光源为关闭状态
+    private bool canToggleLight = true; // 是否可以切换光源状态
 
     void Start()
     {
@@ -25,42 +25,44 @@ public class LightRay : MonoBehaviour
             lineRenderer.endColor = Color.yellow;
         }
 
-        // 初始化光源材质颜色
         if (lightSource.GetComponent<Renderer>() != null)
         {
             lightSource.GetComponent<Renderer>().material.color = Color.gray;
         }
 
-        // 初始时隐藏光线
         HideLightRay();
     }
 
     void Update()
     {
+        // 检测空格键按下事件，如果canToggleLight为false，则不响应
+        if (canToggleLight && Input.GetKeyDown(KeyCode.Space))
+        {
+            ToggleLight();
+        }
+
         if (isLightOn)
         {
             SimulateLightRay();
         }
         else
         {
-            // 光源关闭时隐藏光线
             HideLightRay();
         }
     }
 
-    // 处理按钮点击事件的公共方法
     public void ToggleLight()
     {
+        if (!canToggleLight) return;
+
         isLightOn = !isLightOn;
 
-        // 切换光源材质颜色
         if (lightSource.GetComponent<Renderer>() != null)
         {
             Color newColor = isLightOn ? Color.yellow : Color.gray;
             lightSource.GetComponent<Renderer>().material.color = newColor;
         }
 
-        // 根据光源状态显示或隐藏光线
         if (isLightOn)
         {
             SimulateLightRay();
@@ -93,11 +95,27 @@ public class LightRay : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Target"))
                 {
-                    isLevelCleared = true;
-                    Debug.Log("初级关卡通关！");
-                    if (OnLevelCleared != null)
+                    if (!isLevelCleared)
                     {
-                        OnLevelCleared();
+                        isLevelCleared = true;
+                        Debug.Log("初级关卡通关！");
+                        if (OnLevelCleared != null)
+                        {
+                            OnLevelCleared();
+                        }
+                        // 通关后禁止切换光源状态，但保持光源开启
+                        canToggleLight = false;
+                        isLightOn = true;
+                        if (lightSource.GetComponent<Renderer>() != null)
+                        {
+                            lightSource.GetComponent<Renderer>().material.color = Color.yellow;
+                        }
+                        // 禁用所有镜子的旋转功能
+                        Mirror[] allMirrors = FindObjectsOfType<Mirror>();
+                        foreach (Mirror mirror in allMirrors)
+                        {
+                            mirror.DisableRotation();
+                        }
                     }
                     break;
                 }

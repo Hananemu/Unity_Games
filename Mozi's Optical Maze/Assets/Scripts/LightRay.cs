@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LightRay : MonoBehaviour
@@ -8,13 +9,13 @@ public class LightRay : MonoBehaviour
     public Transform lightSource;
     public Transform target;
     public LineRenderer lineRenderer;
-    public int maxReflections = 10;//最大反射次数
+    public int maxReflections = 10; // 最大反射次数
     public static event System.Action OnLevelCleared;
     public bool isLevelCleared = false;
     private bool isLightOn = false; // 初始光源为关闭状态
     private bool canToggleLight = true; // 是否可以切换光源状态
     public GameObject victoryPanel; // 胜利UI面板
-    public GameObject Target;//目标UI面板
+    public GameObject Target; // 目标UI面板
 
     void Start()
     {
@@ -102,12 +103,21 @@ public class LightRay : MonoBehaviour
                     currentPosition = hit.point;
                     currentDirection = Vector3.Reflect(currentDirection, hit.normal);
                 }
+                else if (hit.collider.CompareTag("Lens"))
+                {
+                    Lens lens = hit.collider.GetComponent<Lens>();
+                    if (lens != null)
+                    {
+                        currentPosition = hit.point;
+                        currentDirection = CalculateRefraction(currentDirection, lens);
+                    }
+                }
                 else if (hit.collider.CompareTag("Target"))
                 {
                     if (!isLevelCleared)
                     {
                         isLevelCleared = true;
-                        Debug.Log("初级关卡通关！");
+                        Debug.Log("关卡通关！");
                         if (OnLevelCleared != null)
                         {
                             OnLevelCleared();
@@ -130,6 +140,7 @@ public class LightRay : MonoBehaviour
                         {
                             victoryPanel.SetActive(true);
                             Target.SetActive(false);
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//加载下一个场景
                         }
                     }
                     break;
@@ -143,6 +154,24 @@ public class LightRay : MonoBehaviour
             {
                 break;
             }
+        }
+    }
+
+    // 计算折射方向
+    Vector3 CalculateRefraction(Vector3 incomingDirection, Lens lens)
+    {
+        switch (lens.lensType)
+        {
+            case LensType.Convex:
+                // 凸透镜使光线汇聚
+                Vector3 focalPoint = lens.transform.position + lens.transform.forward * lens.focalLength;
+                return (focalPoint - lens.transform.position).normalized;
+            case LensType.Concave:
+                // 凹透镜使光线发散
+                Vector3 virtualFocalPoint = lens.transform.position - lens.transform.forward * lens.focalLength;
+                return (lens.transform.position - virtualFocalPoint).normalized;
+            default:
+                return incomingDirection;
         }
     }
 

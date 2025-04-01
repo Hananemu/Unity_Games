@@ -117,7 +117,7 @@ public class LightRay : MonoBehaviour
                     if (!isLevelCleared)
                     {
                         isLevelCleared = true;
-                        Debug.Log("关卡通关！");
+                        Debug.Log("初级关卡通关！");
                         if (OnLevelCleared != null)
                         {
                             OnLevelCleared();
@@ -140,8 +140,16 @@ public class LightRay : MonoBehaviour
                         {
                             victoryPanel.SetActive(true);
                             Target.SetActive(false);
-                            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);//加载下一个场景
                         }
+                    }
+                    break;
+                }
+                else if (hit.collider.CompareTag("LightGateSwitch"))
+                {
+                    LightGateSwitch gateSwitch = hit.collider.GetComponent<LightGateSwitch>();
+                    if (gateSwitch != null)
+                    {
+                        gateSwitch.Activate();
                     }
                     break;
                 }

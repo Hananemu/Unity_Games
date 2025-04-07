@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\",
+  "WorkspaceRootPath": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|d:\\code\\github\\unity_games\\mozi\u0027s optical maze\\assets\\scripts\\lightray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|f:\\unity_games\\mozi\u0027s optical maze\\assets\\scripts\\lightray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lightray.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\lightgateswitch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|F:\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\lightgateswitch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lightgateswitch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\lens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|F:\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\lens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\start_game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|F:\\Unity_Games\\Mozi\u0027s Optical Maze\\assets\\scripts\\start_game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3FF7D528-DC1D-68FA-7FDD-0BA0338D8B7C}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\start_game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,43 +26,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Lens.cs",
-              "DocumentMoniker": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Lens.cs",
+              "DocumentMoniker": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Lens.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Lens.cs",
-              "ToolTip": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Lens.cs",
+              "ToolTip": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Lens.cs",
               "RelativeToolTip": "Assets\\Scripts\\Lens.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-03T14:15:20.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-03T14:15:20.092Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "LightGateSwitch.cs",
-              "DocumentMoniker": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightGateSwitch.cs",
+              "DocumentMoniker": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightGateSwitch.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LightGateSwitch.cs",
-              "ToolTip": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightGateSwitch.cs",
+              "ToolTip": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightGateSwitch.cs",
               "RelativeToolTip": "Assets\\Scripts\\LightGateSwitch.cs",
               "ViewState": "AgIAAF4AAAAAAAAAAAAAAHkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T02:55:21.03Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T02:55:21.03Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "LightRay.cs",
-              "DocumentMoniker": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightRay.cs",
+              "DocumentMoniker": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightRay.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\LightRay.cs",
-              "ToolTip": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightRay.cs",
+              "ToolTip": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\LightRay.cs",
               "RelativeToolTip": "Assets\\Scripts\\LightRay.cs",
-              "ViewState": "AgIAAKMAAAAAAAAAAAAgwKYAAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-31T12:18:39.689Z",
               "EditorCaption": ""
@@ -71,14 +73,13 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Start_Game.cs",
-              "DocumentMoniker": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Start_Game.cs",
+              "DocumentMoniker": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Start_Game.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Start_Game.cs",
-              "ToolTip": "D:\\Code\\Github\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Start_Game.cs",
+              "ToolTip": "F:\\Unity_Games\\Mozi\u0027s Optical Maze\\Assets\\Scripts\\Start_Game.cs",
               "RelativeToolTip": "Assets\\Scripts\\Start_Game.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T12:18:14.793Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-31T12:18:14.793Z"
             }
           ]
         }

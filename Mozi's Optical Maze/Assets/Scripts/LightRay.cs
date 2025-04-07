@@ -15,7 +15,7 @@ public class LightRay : MonoBehaviour
     public GameObject victoryPanel; // 胜利UI面板
     public GameObject Target; // 目标UI面板
 
-    void Start()
+    public void Start()
     {
         if (lineRenderer == null)
         {
@@ -41,7 +41,7 @@ public class LightRay : MonoBehaviour
         }
     }
 
-    void Update()
+    public void Update()
     {
         // 检测空格键按下事件，如果canToggleLight为false，则不响应
         if (canToggleLight && Input.GetKeyDown(KeyCode.Space))

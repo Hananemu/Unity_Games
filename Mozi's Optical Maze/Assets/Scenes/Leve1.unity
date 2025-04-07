@@ -5714,6 +5714,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2640779141262050498, guid: 61c2a12351bb4cb4d9ad88fed1049f7f, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640779141262050498, guid: 61c2a12351bb4cb4d9ad88fed1049f7f, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628925563223397879, guid: 61c2a12351bb4cb4d9ad88fed1049f7f, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6885937777971805014, guid: 61c2a12351bb4cb4d9ad88fed1049f7f, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.ctime2
       value: 35466
@@ -5990,7 +6002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2396679394969249422, guid: 29dff1f97b5d1344da927aa7de5724ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.695
+      value: 2.34
       objectReference: {fileID: 0}
     - target: {fileID: 2396679394969249422, guid: 29dff1f97b5d1344da927aa7de5724ec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5998,7 +6010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2396679394969249422, guid: 29dff1f97b5d1344da927aa7de5724ec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.73
+      value: -2.972
       objectReference: {fileID: 0}
     - target: {fileID: 2396679394969249422, guid: 29dff1f97b5d1344da927aa7de5724ec, type: 3}
       propertyPath: m_LocalRotation.w

@@ -20,6 +20,7 @@ public class LightGateSwitch : MonoBehaviour
     public int maxRefractions = 3; // 最大折射次数
 
     private List<Vector3> lightPath = new List<Vector3>(); // 用于保存光线路径
+    private LightRay lightRay; // 用于存储 LightRay 脚本的引用
 
     private void Start()
     {
@@ -39,6 +40,13 @@ public class LightGateSwitch : MonoBehaviour
         }
 
         HideLight();
+
+        // 查找场景中的 LightRay 脚本实例
+        lightRay = FindObjectOfType<LightRay>();
+        if (lightRay == null)
+        {
+            Debug.LogError("未找到 LightRay 脚本实例！");
+        }
     }
 
     // 被光线照射时调用
@@ -111,6 +119,28 @@ public class LightGateSwitch : MonoBehaviour
                         currentDirection = hit.collider.transform.forward;
                         refractionCount++;
                     }
+                    else if (hit.collider.CompareTag("Target"))
+                    {
+                        if (lightRay != null)
+                        {
+                            lightRay.CallHandleTargetHit();
+                        }
+                        break;
+                    }
+                    else if (hit.collider.CompareTag("LightGateSwitch"))
+                    {
+                        LightGateSwitch gateSwitch = hit.collider.GetComponent<LightGateSwitch>();
+                        if (gateSwitch != null)
+                        {
+                            gateSwitch.Activate();
+                        }
+                        else
+                        {
+                            Debug.LogError("LightGateSwitch 组件未在碰撞对象上找到！");
+                        }
+                        //移除 break 语句，让光线继续检测后续的开关
+                        //break;
+                    }
                     else
                     {
                         break;
@@ -127,6 +157,7 @@ public class LightGateSwitch : MonoBehaviour
             yield return null; // 等待下一帧
         }
     }
+
 
     private void UpdateLightRenderer()
     {

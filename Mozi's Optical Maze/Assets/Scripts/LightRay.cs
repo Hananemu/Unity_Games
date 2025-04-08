@@ -11,6 +11,8 @@ public class LightRay : MonoBehaviour
     public GameObject victoryPanel; // 胜利UI面板
     public GameObject targetUI; // 目标UI面板
     public GameObject teleportationPad; // 传送阵对象
+    public float updateInterval = 0.1f; // 光线路径更新间隔
+    private float timer = 0f;
 
     private void Start()
     {
@@ -38,6 +40,14 @@ public class LightRay : MonoBehaviour
         {
             ToggleLight();
         }
+
+        // 动态更新光线路径
+        timer += Time.deltaTime;
+        if (timer >= updateInterval)
+        {
+            timer = 0f;
+            UpdateLightRays();
+        }
     }
 
     private void ToggleLight()
@@ -58,6 +68,20 @@ public class LightRay : MonoBehaviour
                 {
                     lineRenderer.positionCount = 0;
                 }
+            }
+        }
+    }
+
+    private void UpdateLightRays()
+    {
+        // 查找所有带有指定标签的光线对象
+        GameObject[] lightRays = GameObject.FindGameObjectsWithTag(lightRayTag);
+        foreach (GameObject lightRay in lightRays)
+        {
+            LineRenderer lineRenderer = lightRay.GetComponent<LineRenderer>();
+            if (lineRenderer != null && lineRenderer.positionCount > 0)
+            {
+                SimulateLightRay(lightRay, lineRenderer);
             }
         }
     }
@@ -116,7 +140,8 @@ public class LightRay : MonoBehaviour
                     {
                         Debug.LogError("LightGateSwitch component not found on the hit object.");
                     }
-                    break;
+                    //移除 break 语句，让光线继续检测后续的开关
+                    //break;
                 }
                 else
                 {
@@ -158,6 +183,10 @@ public class LightRay : MonoBehaviour
 
         // 激活传送阵
         SetActive(teleportationPad, true);
+    }
+    public void CallHandleTargetHit()
+    {
+        HandleTargetHit();
     }
 
     private void InitializeLineRenderer(LineRenderer lineRenderer)

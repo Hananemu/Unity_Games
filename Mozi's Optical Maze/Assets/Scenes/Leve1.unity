@@ -392,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAngle: 15
   maxDistance: 2
-  centerTolerance: 0.1
+  centerToleranceRange: 0.1
   isSelected: 0
 --- !u!1 &1219771124 stripped
 GameObject:
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAngle: 15
   maxDistance: 2
-  centerTolerance: 0.1
+  centerToleranceRange: 0.1
   isSelected: 0
 --- !u!1001 &1852734190
 PrefabInstance:
@@ -1294,7 +1294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 521050276874224022, guid: 153a7f886ab197646a7000740ada5e91, type: 3}
       propertyPath: maxReflections
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 521050276874224022, guid: 153a7f886ab197646a7000740ada5e91, type: 3}
       propertyPath: teleportationPad
@@ -1347,6 +1347,10 @@ PrefabInstance:
     - target: {fileID: 7479236708452807377, guid: 153a7f886ab197646a7000740ada5e91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851084279075959419, guid: 153a7f886ab197646a7000740ada5e91, type: 3}
+      propertyPath: m_TagString
+      value: LightRay
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

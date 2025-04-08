@@ -6,13 +6,27 @@ public class Mirror : MonoBehaviour
 {
     public float rotationAngle = 15f;
     public float maxDistance = 2f; // 玩家与镜子的最大距离
-    public float centerTolerance = 0.1f; // 视角中心的容差范围
+    public float centerToleranceRange = 0.1f; // 视角中心的容差范围
     public bool isSelected = false; // 是否被选中
     private bool canRotate = true; // 是否可以旋转镜子
 
+    private static List<Mirror> allMirrors = new List<Mirror>(); // 存储所有镜子对象
+
+    void Awake()
+    {
+        // 在初始化时将当前镜子添加到列表中
+        allMirrors.Add(this);
+    }
+
+    void OnDestroy()
+    {
+        // 在销毁时从列表中移除当前镜子
+        allMirrors.Remove(this);
+    }
+
     void Update()
     {
-        if (!canRotate) return;
+        if (!CanRotate()) return;
 
         if (isSelected)
         {
@@ -27,15 +41,24 @@ public class Mirror : MonoBehaviour
         }
     }
 
+    private bool CanRotate()
+    {
+        return canRotate;
+    }
+
     public void SelectMirror()
     {
-        Mirror[] allMirrors = FindObjectsOfType<Mirror>();
+        DeselectAllMirrors();
+        isSelected = true;
+    }
+
+    private void DeselectAllMirrors()
+    {
+        // 遍历所有镜子并取消选中
         foreach (Mirror mirror in allMirrors)
         {
             mirror.isSelected = false;
         }
-
-        isSelected = true;
     }
 
     void RotateMirror(float angle)

@@ -1,90 +1,75 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LightRay : MonoBehaviour
 {
-    public Transform lightSource;
-    public Transform target;
-    public LineRenderer lineRenderer;
+    public string lightRayTag = "LightRay"; // 设置标签名称
+    public Transform lightSource; // 光源位置
+    public Transform target; // 目标位置
     public int maxReflections = 10; // 最大反射次数
-    public static event System.Action OnLevelCleared;
-    public bool isLevelCleared = false;
-    private bool isLightOn = false; // 初始光源为关闭状态
-    private bool canToggleLight = true; // 是否可以切换光源状态
+    public static event System.Action OnLevelCleared; // 通关事件
     public GameObject victoryPanel; // 胜利UI面板
-    public GameObject Target; // 目标UI面板
+    public GameObject targetUI; // 目标UI面板
+    public GameObject teleportationPad; // 传送阵对象
 
-    public void Start()
+    private void Start()
     {
-        if (lineRenderer == null)
-        {
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.yellow;
-            lineRenderer.endColor = Color.yellow;
-        }
+        // 初始化胜利面板和传送阵
+        SetActive(victoryPanel, false);
+        SetActive(teleportationPad, false);
 
-        if (lightSource.GetComponent<Renderer>() != null)
+        // 查找所有带有指定标签的光线对象并初始化
+        GameObject[] lightRays = GameObject.FindGameObjectsWithTag(lightRayTag);
+        foreach (GameObject lightRay in lightRays)
         {
-            lightSource.GetComponent<Renderer>().material.color = Color.gray;
-        }
-
-        HideLightRay();
-
-        // 确保胜利面板初始时是隐藏的
-        if (victoryPanel != null)
-        {
-            victoryPanel.SetActive(false);
+            LineRenderer lineRenderer = lightRay.GetComponent<LineRenderer>();
+            if (lineRenderer == null)
+            {
+                lineRenderer = lightRay.AddComponent<LineRenderer>();
+                InitializeLineRenderer(lineRenderer);
+            }
         }
     }
 
-    public void Update()
+    private void Update()
     {
-        // 检测空格键按下事件，如果canToggleLight为false，则不响应
-        if (canToggleLight && Input.GetKeyDown(KeyCode.Space))
+        // 检测空格键按下事件
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             ToggleLight();
         }
+    }
 
-        if (isLightOn)
+    private void ToggleLight()
+    {
+        // 查找所有带有指定标签的光线对象
+        GameObject[] lightRays = GameObject.FindGameObjectsWithTag(lightRayTag);
+        foreach (GameObject lightRay in lightRays)
         {
-            SimulateLightRay();
-        }
-        else
-        {
-            HideLightRay();
+            LineRenderer lineRenderer = lightRay.GetComponent<LineRenderer>();
+            if (lineRenderer != null)
+            {
+                // 切换光线的显示状态
+                if (lineRenderer.positionCount == 0)
+                {
+                    SimulateLightRay(lightRay, lineRenderer);
+                }
+                else
+                {
+                    lineRenderer.positionCount = 0;
+                }
+            }
         }
     }
 
-    public void ToggleLight()
+    private void SimulateLightRay(GameObject lightRay, LineRenderer lineRenderer)
     {
-        if (!canToggleLight) return;
+        // 获取光源位置和方向
+        Transform lightSourceTransform = lightSource;
+        Vector3 currentPosition = lightSourceTransform.position;
+        Vector3 currentDirection = lightSourceTransform.forward;
 
-        isLightOn = !isLightOn;
-
-        if (lightSource.GetComponent<Renderer>() != null)
-        {
-            Color newColor = isLightOn ? Color.yellow : Color.gray;
-            lightSource.GetComponent<Renderer>().material.color = newColor;
-        }
-
-        if (isLightOn)
-        {
-            SimulateLightRay();
-        }
-        else
-        {
-            HideLightRay();
-        }
-    }
-
-    void SimulateLightRay()
-    {
-        Vector3 currentPosition = lightSource.position;
-        Vector3 currentDirection = lightSource.forward;
+        // 初始化 LineRenderer
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, currentPosition);
 
@@ -109,37 +94,15 @@ public class LightRay : MonoBehaviour
                         currentPosition = hit.point;
                         currentDirection = CalculateRefraction(currentDirection, lens);
                     }
+                    else
+                    {
+                        Debug.LogError("Lens component not found on the hit object.");
+                        break;
+                    }
                 }
                 else if (hit.collider.CompareTag("Target"))
                 {
-                    if (!isLevelCleared)
-                    {
-                        isLevelCleared = true;
-                        Debug.Log("初级关卡通关！");
-                        if (OnLevelCleared != null)
-                        {
-                            OnLevelCleared();
-                        }
-                        // 通关后禁止切换光源状态，但保持光源开启
-                        canToggleLight = false;
-                        isLightOn = true;
-                        if (lightSource.GetComponent<Renderer>() != null)
-                        {
-                            lightSource.GetComponent<Renderer>().material.color = Color.yellow;
-                        }
-                        // 禁用所有镜子的旋转功能
-                        Mirror[] allMirrors = FindObjectsOfType<Mirror>();
-                        foreach (Mirror mirror in allMirrors)
-                        {
-                            mirror.DisableRotation();
-                        }
-                        // 显示胜利UI面板和关闭目标UI面板
-                        if (victoryPanel != null)
-                        {
-                            victoryPanel.SetActive(true);
-                            Target.SetActive(false);
-                        }
-                    }
+                    HandleTargetHit();
                     break;
                 }
                 else if (hit.collider.CompareTag("LightGateSwitch"))
@@ -148,6 +111,10 @@ public class LightRay : MonoBehaviour
                     if (gateSwitch != null)
                     {
                         gateSwitch.Activate();
+                    }
+                    else
+                    {
+                        Debug.LogError("LightGateSwitch component not found on the hit object.");
                     }
                     break;
                 }
@@ -163,8 +130,7 @@ public class LightRay : MonoBehaviour
         }
     }
 
-    // 计算折射方向
-    Vector3 CalculateRefraction(Vector3 incomingDirection, Lens lens)
+    private Vector3 CalculateRefraction(Vector3 incomingDirection, Lens lens)
     {
         switch (lens.lensType)
         {
@@ -181,8 +147,33 @@ public class LightRay : MonoBehaviour
         }
     }
 
-    void HideLightRay()
+    private void HandleTargetHit()
     {
-        lineRenderer.positionCount = 0;
+        Debug.Log("初级关卡通关！");
+        OnLevelCleared?.Invoke();
+
+        // 显示胜利UI面板和关闭目标UI面板
+        SetActive(victoryPanel, true);
+        SetActive(targetUI, false);
+
+        // 激活传送阵
+        SetActive(teleportationPad, true);
+    }
+
+    private void InitializeLineRenderer(LineRenderer lineRenderer)
+    {
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.yellow;
+        lineRenderer.endColor = Color.yellow;
+    }
+
+    private void SetActive(GameObject obj, bool active)
+    {
+        if (obj != null)
+        {
+            obj.SetActive(active);
+        }
     }
 }

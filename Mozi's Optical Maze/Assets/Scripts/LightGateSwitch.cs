@@ -12,11 +12,12 @@ public class LightGateSwitch : MonoBehaviour
     public Color activeColor = Color.green; // 激活时的颜色
     public Animator doorAnimator; // 引用大门的 Animator 组件
     public string openDoorTrigger = "Open"; // 触发开门动画的参数名称
-
     public Transform lightSource; // 开关发射光线的起点
     public LineRenderer lightLineRenderer; // 用于绘制光线路径的 LineRenderer
     public float lightRange = 10f; // 光线的射程范围
     public LayerMask lightLayerMask; // 光线检测的层
+    public int maxReflections = 5; // 最大反射次数
+    public int maxRefractions = 3; // 最大折射次数
 
     private List<Vector3> lightPath = new List<Vector3>(); // 用于保存光线路径
 
@@ -82,21 +83,44 @@ public class LightGateSwitch : MonoBehaviour
     {
         while (isActivated) // 只要开关处于激活状态，就持续发射光线
         {
-            Vector3 origin = lightSource.position;
-            Vector3 direction = lightSource.forward;
+            lightPath.Clear();
+            Vector3 currentPosition = lightSource.position;
+            Vector3 currentDirection = lightSource.forward;
+            int reflectionCount = 0;
+            int refractionCount = 0;
 
-            RaycastHit hit;
-            if (Physics.Raycast(origin, direction, out hit, lightRange, lightLayerMask))
+            lightPath.Add(currentPosition);
+
+            for (int i = 0; i < maxReflections + maxRefractions; i++)
             {
-                // 如果光线击中物体
-                lightPath.Add(origin);
-                lightPath.Add(hit.point);
-            }
-            else
-            {
-                // 如果光线没有击中物体
-                lightPath.Add(origin);
-                lightPath.Add(origin + direction * lightRange);
+                RaycastHit hit;
+                if (Physics.Raycast(currentPosition, currentDirection, out hit, lightRange, lightLayerMask))
+                {
+                    lightPath.Add(hit.point);
+
+                    if (hit.collider.CompareTag("Mirror") && reflectionCount < maxReflections)
+                    {
+                        currentPosition = hit.point;
+                        currentDirection = Vector3.Reflect(currentDirection, hit.normal);
+                        reflectionCount++;
+                    }
+                    else if (hit.collider.CompareTag("Lens") && refractionCount < maxRefractions)
+                    {
+                        // 简单示例：假设透镜将光线转向自身的前方
+                        currentPosition = hit.point;
+                        currentDirection = hit.collider.transform.forward;
+                        refractionCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    lightPath.Add(currentPosition + currentDirection * lightRange);
+                    break;
+                }
             }
 
             UpdateLightRenderer(); // 更新光线路径

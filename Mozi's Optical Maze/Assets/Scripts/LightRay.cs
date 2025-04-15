@@ -174,15 +174,16 @@ public class LightRay : MonoBehaviour
 
     private void HandleTargetHit()
     {
-        Debug.Log("初级关卡通关！");
+        Debug.Log("关卡通关！");
         OnLevelCleared?.Invoke();
 
         // 显示胜利UI面板和关闭目标UI面板
         SetActive(victoryPanel, true);
         SetActive(targetUI, false);
-
+     
         // 激活传送阵
         SetActive(teleportationPad, true);
+        
     }
     public void CallHandleTargetHit()
     {

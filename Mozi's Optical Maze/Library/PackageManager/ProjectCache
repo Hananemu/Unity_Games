@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638796703656696986
-    m_Hash: 738492687
+      ticks: 638800559301859443
+    m_Hash: 3528753469
   m_LockFileStatus:
     m_FilePath: D:/Code/Github/Unity_Games/Mozi's Optical Maze/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638796703685244762
-    m_Hash: 733273467
+      ticks: 638800559301891900
+    m_Hash: 1729358911
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -302,12 +302,12 @@ m_ResolvedPackages:
   upmReserved: '{"quickstart":"https://docs.unity3d.com/2021.2/Documentation/Manual/DeveloperToolsFeature.html"}'
   assetStore:
     productId: 
-- packageId: com.unity.timeline@1.8.6
+- packageId: com.unity.timeline@1.8.8
   testable: 0
   isDirectDependency: 1
-  version: 1.8.6
+  version: 1.8.8
   source: 1
-  resolvedPath: D:\Code\Github\Unity_Games\Mozi's Optical Maze\Library\PackageCache\com.unity.timeline@1.8.6
+  resolvedPath: D:\Code\Github\Unity_Games\Mozi's Optical Maze\Library\PackageCache\com.unity.timeline@1.8.8
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -417,18 +417,18 @@ m_ResolvedPackages:
     recommended: 1.8.8
     deprecated: []
   dependencies:
+  - name: com.unity.modules.audio
+    version: 1.0.0
   - name: com.unity.modules.director
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
-  - name: com.unity.modules.audio
-    version: 1.0.0
   - name: com.unity.modules.particlesystem
     version: 1.0.0
   resolvedDependencies:
-  - name: com.unity.modules.director
-    version: 1.0.0
   - name: com.unity.modules.audio
+    version: 1.0.0
+  - name: com.unity.modules.director
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
@@ -452,13 +452,13 @@ m_ResolvedPackages:
   entitlements:
     licensingModel: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 638326112870000000
+  datePublishedTicks: 638739762300000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.timeline@1.8/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.timeline.git
-    revision: 9b8cc7590b7d733181284f1a846a02406b5524d8
+    revision: b01f8fc6766a468476830dec57fdf694f16104e6
     path: 
   unityLifecycle:
     version: 1.8.6
@@ -471,14 +471,15 @@ m_ResolvedPackages:
   git:
     hash: 
     revision: 
-  upmReserved: '{"changelog":"### Changed\n\n- In the `Create Asset` menu, the `Signal`
-    and `Timeline` items have been moved to the `Timeline` submenu.\n\n### Fixed\n\n-
-    Fixed issue where changing the name of a group track was not undoable ([TB-218](https://issuetracker.unity3d.com/issues/timeline-track-group-renaming-doesnt-go-into-the-undo-history)).\n-
-    Fixed issue where a warning would be logged in the console for `TrackAsset` ([TB-229](https://issuetracker.unity3d.com/product/unity/issues/guid/TB-229)).\n-
-    Fixed performance regression when rebuilding the playable graph.\n- Fixed a `MissingReferenceException`
-    when editing a Timeline that is an instance of a prefab and a bound `Animator`
-    is destroyed ([TB-222](https://issuetracker.unity3d.com/issues/timeline-missingreferenceexceptions-when-undoing-add-animator-from-timeline))\n-
-    Removed warnings due to obsolete analytics API."}'
+  upmReserved: '{"changelog":"### Fixed\n\n- Fixed bug where the first property,
+    when it is a collection of objects, of a TrackAsset would not be properly displayed
+    in the inspector.\n- TimelineAsset.EditorSettings.SetStandardFrameRate would
+    incorrectly throw an ArgumentException if given a valid StandardFrameRates, this
+    has been corrected.\n- Clip blends will now be computed when using the API to
+    add clips to tracks - IN-66759\n- Improved performance when evaluating Timeline
+    Playables with a large number of clip based Animation Tracks (TB-259)\n- Updated
+    the Gameplay Sequence sample to show materials when using the Universal and HD
+    Render Pipelines."}'
   assetStore:
     productId: 
 - packageId: com.unity.ugui@2.0.0
@@ -3102,12 +3103,14 @@ m_ResolvedPackages:
     - 3.0.31
     - 3.0.34
     - 3.0.35
+    - 3.0.36
     compatible:
     - 3.0.28
     - 3.0.31
     - 3.0.34
     - 3.0.35
-    recommended: 3.0.35
+    - 3.0.36
+    recommended: 3.0.36
     deprecated: []
   dependencies:
   - name: com.unity.ext.nunit
